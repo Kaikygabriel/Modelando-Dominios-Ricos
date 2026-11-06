@@ -2,5 +2,4 @@
   <Project Path="PaymentContext.Domain/PaymentContext.Domain.csproj" />
   <Project Path="PaymentContext.Shared/PaymentContext.Shared.csproj" />
   <Project Path="PaymentContext.Test/PaymentContext.Test.csproj" />
-  <Project Path="testeDocker/testeDocker.csproj" />
 </Solution>

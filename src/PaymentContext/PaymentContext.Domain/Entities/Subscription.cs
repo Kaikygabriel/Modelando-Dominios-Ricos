@@ -1,6 +1,10 @@
+using Flunt.Notifications;
+using Flunt.Validations;
+using PaymentContext.Shared.Entities;
+
 namespace PaymentContext.Domain.Entities;
 
-public class Subscription
+public class Subscription : Entity
 {
     
     private  Subscription()
@@ -23,6 +27,10 @@ public class Subscription
 
     public void AddPayment(Payment payment)
     {
+        if(Expired is not null)
+            AddNotifications(new Contract<Notification>()
+                .IsGreaterThan(DateTime.UtcNow,(DateTime)Expired,"Subscription.Expired","Payment already expired"));
+        
         _payments.Add(payment);
     }
 

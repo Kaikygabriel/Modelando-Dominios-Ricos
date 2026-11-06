@@ -1,8 +1,9 @@
 using PaymentContext.Domain.ValueObjects;
+using PaymentContext.Shared.Entities;
 
 namespace PaymentContext.Domain.Entities;
 
-public abstract class Payment
+public abstract class Payment : Entity
 {
   
     protected Payment(DateTime paidAt, DateTime expiredAt, decimal total, decimal totalPaid,Address address, Document document, string payer, Email email)
@@ -16,6 +17,8 @@ public abstract class Payment
         Document = document;
         Payer = payer;
         Email = email;
+        
+        AddNotifications(address,document,email);
     }
 
     public string Number { get;private set; }

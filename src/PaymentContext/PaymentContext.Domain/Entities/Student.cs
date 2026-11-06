@@ -1,8 +1,9 @@
 using PaymentContext.Domain.ValueObjects;
+using PaymentContext.Shared.Entities;
 
 namespace PaymentContext.Domain.Entities;
 
-public class Student
+public class Student : Entity
 {
     private Student()
     {
@@ -11,6 +12,8 @@ public class Student
         
     public Student(Name name, Document document, Email email, Address address)
     {
+        AddNotifications(name,document,email,address);
+        
         Name =name;
         Document = document;
         Email = email;
@@ -26,7 +29,13 @@ public class Student
 
     public void AddSubscription(Subscription subscription)
     {
-        _subscriptions.ForEach(x=>x.Disable());
+        foreach(var sub in _subscriptions)
+          if(sub.IsActive)
+          {
+              AddNotification("Student.Subscription", "Already exists one subscription active !");
+              break;
+          }
+        
         _subscriptions.Add(subscription);
     }
 
