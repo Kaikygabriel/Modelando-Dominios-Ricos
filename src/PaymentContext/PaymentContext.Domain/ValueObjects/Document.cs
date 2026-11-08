@@ -1,3 +1,5 @@
+using Flunt.Notifications;
+using Flunt.Validations;
 using PaymentContext.Domain.Enums;
 using PaymentContext.Shared.ValueObjects;
 
@@ -13,12 +15,14 @@ public sealed class Document : ValueObject
     {
         Number = number;
         Type = type;
+        
+        AddNotifications(new Contract<Notification>().IsTrue(Validate(),"Document.Number","Document Invalid"));
     }
 
     public string Number { get; private init; } = null!;
     public EDocumentType Type { get; private init; }
 
-    public bool Validate()
+    private bool Validate() 
     {
         if (Type == EDocumentType.Rg && Number.Length == 9)
             return true;

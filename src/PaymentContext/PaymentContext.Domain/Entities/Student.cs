@@ -33,7 +33,7 @@ public class Student : Entity
           if(sub.IsActive)
           {
               AddNotification("Student.Subscription", "Already exists one subscription active !");
-              break;
+              return;
           }
         
         _subscriptions.Add(subscription);
