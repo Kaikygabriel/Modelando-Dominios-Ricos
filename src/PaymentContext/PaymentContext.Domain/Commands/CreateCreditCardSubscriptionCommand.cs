@@ -26,6 +26,8 @@ public class CreateCreditCardSubscriptionCommand : Notifiable<Notification>, ICo
         City = city;
         ZipCode = zipCode;
         Payer = payer;
+        
+        Validate();
     }
 
     public Guid UserId { get; set; }
@@ -54,7 +56,8 @@ public class CreateCreditCardSubscriptionCommand : Notifiable<Notification>, ICo
             .IsNotNullOrEmpty(LastTransactionNumber,"CreateCreditCardSubscriptionCommand.LastTransactionNumber")
             .IsNotNullOrEmpty(Number,"CreateCreditCardSubscriptionCommand.Number")
             .IsNotNullOrEmpty(Payer,"CreateCreditCardSubscriptionCommand.Payer")
-            .IsNotNull(UserId,"CreateCreditCardSubscriptionCommand.UserId")
+            .IsNotNullOrEmpty(UserId.ToString(),"CreateCreditCardSubscriptionCommand.UserId")
+            .AreNotEquals(UserId , Guid.Empty,"CreateCreditCardSubscriptionCommand.UserId","UserId is Empty")
         );
     }
 }
