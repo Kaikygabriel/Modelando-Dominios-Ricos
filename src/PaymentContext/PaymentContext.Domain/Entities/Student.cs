@@ -1,3 +1,5 @@
+using Flunt.Notifications;
+using Flunt.Validations;
 using PaymentContext.Domain.ValueObjects;
 using PaymentContext.Shared.Entities;
 
@@ -35,6 +37,12 @@ public class Student : Entity
               AddNotification("Student.Subscription", "Already exists one subscription active !");
               return;
           }
+
+        if (subscription.GetPayments().Count() == 0)
+        {
+            AddNotification("Student.Subscription.Payments", "Subscription no contains payment !");
+            return;
+        }
         
         _subscriptions.Add(subscription);
     }

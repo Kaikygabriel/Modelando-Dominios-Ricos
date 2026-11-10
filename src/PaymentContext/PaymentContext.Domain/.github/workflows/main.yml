@@ -1,0 +1,35 @@
+name: push package in github
+
+on:
+  push:
+    branches:
+      - main
+  workflow_call: 
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: checkout
+        uses: actions/checkout@v7
+        
+      - name: setup .net
+        uses: actions/setup-dotnet@v6
+        with: 
+          dotnet-version: '10.0.x'
+          
+      - name: build
+        run: dotnet build -c Release
+        
+      - name: test
+        run: dotnet test
+        
+      - name: build package
+        run: dotnet package -c Release -o ./package
+      
+      - name: add github source
+        run: dotnet nuget add source --username kaikygabriel --password ${{ secrets.YOUR_GITHUB_PAT }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/kaikygabriel/index.json"
+        
+      - name: publish in github
+        run : dotnet nuget push "./package/*.nupkg" --api-key ${{ secrets.YOUR_GITHUB_PAT }} --source "github"

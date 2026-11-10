@@ -1,6 +1,5 @@
 using System.Text.RegularExpressions;
 using Flunt.Validations;
-using PaymentContext.Domain.Exceptions;
 using PaymentContext.Shared.ValueObjects;
 
 namespace PaymentContext.Domain.ValueObjects;
