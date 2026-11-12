@@ -6,10 +6,10 @@ namespace PaymentContext.Domain.Entities;
 public abstract class Payment : Entity
 {
   
-    protected Payment(DateTime paidAt, DateTime expiredAt, decimal total, decimal totalPaid,Address address, Document document, string payer, Email email)
+    protected Payment(DateTime expiredAt, decimal total, decimal totalPaid,Address address, Document document, string payer, Email email)
     {
         Number = Guid.NewGuid().ToString().Replace("-","")[..10];
-        PaidAt = paidAt;
+        
         ExpiredAt = expiredAt;
         Total = total;
         TotalPaid = totalPaid;
@@ -29,5 +29,10 @@ public abstract class Payment : Entity
     public Address Address { get;private set; }
     public Document Document { get;private set; }
     public string Payer { get;private set; }
-    public Email Email { get; private set; } 
+    public Email Email { get; private set; }
+
+    public void Paid(DateTime paidAt)
+    {
+        PaidAt = paidAt;
+    }
 }

@@ -4,7 +4,7 @@ namespace PaymentContext.Domain.Entities;
 
 public class BoletoPayment: Payment
 {
-    public BoletoPayment(DateTime paidAt, DateTime expiredAt, decimal total, decimal totalPaid, Address address, Document document, string payer, Email email, string codeBar, string boletoNumber) : base(paidAt, expiredAt, total, totalPaid, address, document, payer, email)
+    public BoletoPayment(DateTime expiredAt, decimal total, decimal totalPaid, Address address, Document document, string payer, Email email, string codeBar, string boletoNumber) : base(expiredAt, total, totalPaid, address, document, payer, email)
     {
         CodeBar = codeBar;
         BoletoNumber = boletoNumber;
