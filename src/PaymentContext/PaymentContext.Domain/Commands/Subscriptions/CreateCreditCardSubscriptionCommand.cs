@@ -3,7 +3,7 @@ using Flunt.Br.Extensions;
 using Flunt.Notifications;
 using PaymentContext.Shared.Commands;
 
-namespace PaymentContext.Domain.Commands;
+namespace PaymentContext.Domain.Commands.Subscriptions;
 
 public class CreateCreditCardSubscriptionCommand : Notifiable<Notification>, ICommand
 {
@@ -43,7 +43,7 @@ public class CreateCreditCardSubscriptionCommand : Notifiable<Notification>, ICo
     public string State { get; set; }
     public string City { get; set; }
     public string ZipCode { get;  set; }
-    
+    public int AddressNumber { get; set; }
     public string Payer { get;private set; }
     
     public void Validate()

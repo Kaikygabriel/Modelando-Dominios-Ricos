@@ -6,8 +6,8 @@ namespace PaymentContext.Test.Entities;
 
 public class StudentTests
 {
-    private readonly Student _student =new Student(new Name("teste","teste"),new Document("80827330049",EDocumentType.Cpf),new Email("kaiky@gmail.com"),new Address("brazil","sp","mogi ","120",02));
-    private readonly Payment _payment =new PayPalPayment(DateTime.UtcNow, DateTime.UtcNow, 100, 100, new Address("brazil", "sp", "mogi ", "120", 02), new Document("80827330049", EDocumentType.Cpf), "teste", new Email("teste@gmail.com"), "123");
+    private readonly Student _student =new (new Name("teste","teste"),new Document("23053100053",EDocumentType.Cpf),new Email("kaiky@gmail.com"),new Address("brazil","sp","mogi ","120",02));
+    private readonly Payment _payment =new PayPalPayment(DateTime.UtcNow, DateTime.UtcNow, 100, 100, new Address("brazil", "sp", "mogi ", "74693-105", 02), new Document("80827330049", EDocumentType.Cpf), "teste", new Email("teste@gmail.com"), "123");
     
     [Fact]
     public void Add_Subscription_Should_Return_Error_When_Already_Exists_Subscription_Active()

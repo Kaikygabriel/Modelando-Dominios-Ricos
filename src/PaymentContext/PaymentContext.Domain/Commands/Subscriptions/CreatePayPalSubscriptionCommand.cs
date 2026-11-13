@@ -1,6 +1,6 @@
 using PaymentContext.Domain.ValueObjects;
 
-namespace PaymentContext.Domain.Commands;
+namespace PaymentContext.Domain.Commands.Subscriptions;
 
 public class CreatePayPalSubscriptionCommand
 {

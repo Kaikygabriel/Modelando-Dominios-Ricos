@@ -1,0 +1,6 @@
+namespace PaymentContext.Domain.Services;
+
+public interface IEmailService
+{
+    Task Send(string to, string email,string title, string subject, string body);
+}

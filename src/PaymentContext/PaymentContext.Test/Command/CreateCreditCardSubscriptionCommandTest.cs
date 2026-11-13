@@ -1,5 +1,6 @@
 
 using PaymentContext.Domain.Commands;
+using PaymentContext.Domain.Commands.Subscriptions;
 
 namespace PaymentContext.Test.Command;
 

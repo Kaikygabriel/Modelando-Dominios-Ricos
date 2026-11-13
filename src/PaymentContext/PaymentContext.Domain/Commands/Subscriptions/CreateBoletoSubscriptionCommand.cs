@@ -3,7 +3,7 @@ using Flunt.Br.Extensions;
 using Flunt.Notifications;
 using PaymentContext.Shared.Commands;
 
-namespace PaymentContext.Domain.Commands;
+namespace PaymentContext.Domain.Commands.Subscriptions;
 
 public class CreateBoletoSubscriptionCommand : Notifiable<Notification>,ICommand
 {
