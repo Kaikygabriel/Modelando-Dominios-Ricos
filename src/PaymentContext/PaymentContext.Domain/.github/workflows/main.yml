@@ -1,4 +1,4 @@
-name: push package in github
+name: build and deploy
 
 on:
   push:
@@ -6,7 +6,8 @@ on:
       - main
   workflow_call: 
 
-jobs:
+
+jobs: 
   build-and-deploy:
     runs-on: ubuntu-latest
     
@@ -16,20 +17,20 @@ jobs:
         
       - name: setup .net
         uses: actions/setup-dotnet@v6
-        with: 
+        with:
           dotnet-version: '10.0.x'
           
       - name: build
-        run: dotnet build -c Release
-        
-      - name: test
-        run: dotnet test
-        
-      - name: build package
-        run: dotnet package -c Release -o ./package
+        run : dotnet build
+
+      - name: build publish
+        run: dotnet publish -c Release -o ./publish
+
+      - name: 'Run Azure webapp deploy action using publish profile credentials'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE  }} # Define secret variable in repository settings as per action documentation
+          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
+
       
-      - name: add github source
-        run: dotnet nuget add source --username kaikygabriel --password ${{ secrets.YOUR_GITHUB_PAT }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/kaikygabriel/index.json"
-        
-      - name: publish in github
-        run : dotnet nuget push "./package/*.nupkg" --api-key ${{ secrets.YOUR_GITHUB_PAT }} --source "github"

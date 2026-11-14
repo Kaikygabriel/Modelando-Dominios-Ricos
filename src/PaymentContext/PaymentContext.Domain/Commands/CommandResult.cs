@@ -12,7 +12,7 @@ public class CommandResult : IResult
     public CommandResult(bool result,string message)
     {
         Message = message;
-        IsSuccess = false;
+        IsSuccess = result;
     }
 
     public bool  IsSuccess { get;private init; }

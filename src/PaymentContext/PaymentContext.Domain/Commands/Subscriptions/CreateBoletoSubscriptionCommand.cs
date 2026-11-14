@@ -7,6 +7,28 @@ namespace PaymentContext.Domain.Commands.Subscriptions;
 
 public class CreateBoletoSubscriptionCommand : Notifiable<Notification>,ICommand
 {
+    public CreateBoletoSubscriptionCommand()
+    {
+        
+    }
+    public CreateBoletoSubscriptionCommand(Guid userId, string codeBar, string boletoNumber, string number, DateTime paidAt, DateTime expiredAt, decimal total, decimal totalPaid, string county, string state, string city, string zipCode, int addressNumber, string payer)
+    {
+        UserId = userId;
+        CodeBar = codeBar;
+        BoletoNumber = boletoNumber;
+        Number = number;
+        PaidAt = paidAt;
+        ExpiredAt = expiredAt;
+        Total = total;
+        TotalPaid = totalPaid;
+        County = county;
+        State = state;
+        City = city;
+        ZipCode = zipCode;
+        AddressNumber = addressNumber;
+        Payer = payer;
+    }
+
     public Guid UserId { get; set; }
     public string CodeBar { get; set; }
     public string BoletoNumber { get; set; }
@@ -26,17 +48,16 @@ public class CreateBoletoSubscriptionCommand : Notifiable<Notification>,ICommand
     {
         AddNotifications(new Contract()
             .IsCep(ZipCode,"CreateBoletoSubscriptionCommand.ZipCode","Cep invalid")
-            .IsNull(UserId,"CreateBoletoSubscriptionCommand.UserId","UserId Invalid")
-            .IsNotNullOrEmpty(Payer,"CreateBoletoSubscriptionCommand.Payer")
-            .IsNotNullOrEmpty(CodeBar,"CreateBoletoSubscriptionCommand.CodeBar")
-            .IsNotNullOrEmpty(CodeBar,"CreateBoletoSubscriptionCommand.BoletoNumber")
-            .IsNotNullOrEmpty(CodeBar,"CreateBoletoSubscriptionCommand.Number")
-            .IsNotNullOrEmpty(CodeBar,"CreateBoletoSubscriptionCommand.County")
-            .IsNotNullOrEmpty(CodeBar,"CreateBoletoSubscriptionCommand.State")
-            .IsNotNullOrEmpty(CodeBar,"CreateBoletoSubscriptionCommand.City")
-            .IsNotNullOrEmpty(CodeBar,"CreateBoletoSubscriptionCommand.ZipCode")
-            .IsGreaterThan(0,Total,"CreateBoletoSubscriptionCommand.Total")
-            .IsGreaterThan(0,TotalPaid,"CreateBoletoSubscriptionCommand.TotalPaid")
+            .IsNotNull(UserId,"CreateBoletoSubscriptionCommand.UserId","UserId Invalid")
+            .IsNotNullOrWhiteSpace(Payer,"CreateBoletoSubscriptionCommand.Payer")
+            .IsNotNullOrWhiteSpace(CodeBar,"CreateBoletoSubscriptionCommand.CodeBar")
+            .IsNotNullOrWhiteSpace(BoletoNumber,"CreateBoletoSubscriptionCommand.BoletoNumber")
+            .IsNotNullOrWhiteSpace(Number,"CreateBoletoSubscriptionCommand.Number")
+            .IsNotNullOrWhiteSpace(County,"CreateBoletoSubscriptionCommand.County")
+            .IsNotNullOrWhiteSpace(State,"CreateBoletoSubscriptionCommand.State")
+            .IsNotNullOrWhiteSpace(City,"CreateBoletoSubscriptionCommand.City")
+            .IsGreaterThan(Total,0,"CreateBoletoSubscriptionCommand.Total")
+            .IsGreaterThan(TotalPaid,0,"CreateBoletoSubscriptionCommand.TotalPaid")
         );
     }
 }

@@ -29,7 +29,7 @@ public class Subscription : Entity
     {
         if(Expired is not null)
             AddNotifications(new Contract<Notification>()
-                .IsGreaterThan(DateTime.UtcNow,(DateTime)Expired,"Subscription.Expired","Payment already expired"));
+                .IsGreaterThan((DateTime)Expired,DateTime.UtcNow,"Subscription.Expired","Payment already expired"));
         
         _payments.Add(payment);
     }

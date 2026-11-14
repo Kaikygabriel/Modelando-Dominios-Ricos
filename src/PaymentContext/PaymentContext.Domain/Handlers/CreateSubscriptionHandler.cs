@@ -16,6 +16,7 @@ public class CreateSubscriptionHandler : Notifiable<Notification>,
 {
     private readonly IStudentRepository _studentRepository;
     private readonly IEmailService _emailService;
+    
     public CreateSubscriptionHandler(IStudentRepository studentRepository, IEmailService emailService)
     {
         _studentRepository = studentRepository;
@@ -24,6 +25,8 @@ public class CreateSubscriptionHandler : Notifiable<Notification>,
 
     public async Task<IResult> Handle(CreateBoletoSubscriptionCommand command, CancellationToken cancellationToken = default)
     {
+        command.Validate();
+        
         if (!command.IsValid)
         {
             AddNotifications(command.Notifications);
@@ -42,7 +45,7 @@ public class CreateSubscriptionHandler : Notifiable<Notification>,
             address, student.Document, command.Payer, student.Email, command.CodeBar,
             command.BoletoNumber);
 
-        var subscription = new Subscription(DateTime.UtcNow.AddMonths(1));
+        var subscription = new Subscription(DateTime.UtcNow.AddMonths(12));
         subscription.AddPayment(boletoPayment);
         
         if (!subscription.IsValid)
@@ -69,6 +72,8 @@ public class CreateSubscriptionHandler : Notifiable<Notification>,
 
     public async Task<IResult> Handle(CreateCreditCardSubscriptionCommand command, CancellationToken cancellationToken = default)
     {
+        command.Validate();
+        
         if (!command.IsValid)
         {
             AddNotifications(command.Notifications);
